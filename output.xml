@@ -1,0 +1,2499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0.1 (Python 3.12.5 on win32)" generated="2025-02-19T16:22:58.960560" rpa="true" schemaversion="5">
+<suite id="s1" name="Rpa Projekti" source="c:\VSCode\Ohjelmistorobotiikka ja -automaatio -projekti\rpa_projekti.robot">
+<test id="s1-t1" name="Empty the CSV directory from previous files" line="30">
+<kw name="Count Files In Directory" owner="OperatingSystem">
+<msg time="2025-02-19T16:22:59.571054" level="INFO" html="true">Listing contents of directory '&lt;a href="file://C:\VSCode\Ohjelmistorobotiikka ja -automaatio -projekti\CSVs"&gt;C:\VSCode\Ohjelmistorobotiikka ja -automaatio -projekti\CSVs&lt;/a&gt;'.</msg>
+<msg time="2025-02-19T16:22:59.576043" level="INFO">0 files.</msg>
+<msg time="2025-02-19T16:22:59.576043" level="INFO">${filecount} = 0</msg>
+<var>${filecount}</var>
+<arg>${TARGETPATH}</arg>
+<doc>Wrapper for `Count Items In Directory` returning only file count.</doc>
+<status status="PASS" start="2025-02-19T16:22:59.569458" elapsed="0.006585"/>
+</kw>
+<kw name="Remove Files" owner="OperatingSystem">
+<msg time="2025-02-19T16:22:59.580227" level="INFO" html="true">File '&lt;a href="file://C:\VSCode\Ohjelmistorobotiikka ja -automaatio -projekti\CSVs\*.csv"&gt;C:\VSCode\Ohjelmistorobotiikka ja -automaatio -projekti\CSVs\*.csv&lt;/a&gt;' does not exist.</msg>
+<arg>${TARGETPATH}/*.csv</arg>
+<doc>Uses `Remove File` to remove multiple files one-by-one.</doc>
+<status status="PASS" start="2025-02-19T16:22:59.577463" elapsed="0.004277"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Removed ${filecount} files</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-02-19T16:22:59.581740" elapsed="0.044434"/>
+</kw>
+<status status="PASS" start="2025-02-19T16:22:59.566860" elapsed="0.084847"/>
+</test>
+<test id="s1-t2" name="Copy the created CSVs from the UiPath folder to the target path" line="37">
+<kw name="Copy Files" owner="OperatingSystem">
+<msg time="2025-02-19T16:22:59.689274" level="INFO" html="true">Copied file from '&lt;a href="file://C:\Users\jvisa\OneDrive\Documents\UiPath\RPA-projekti\InvoiceHeaderData.csv"&gt;C:\Users\jvisa\OneDrive\Documents\UiPath\RPA-projekti\InvoiceHeaderData.csv&lt;/a&gt;' to '&lt;a href="file://C:\VSCode\Ohjelmistorobotiikka ja -automaatio -projekti\CSVs\InvoiceHeaderData.csv"&gt;C:\VSCode\Ohjelmistorobotiikka ja -automaatio -projekti\CSVs\InvoiceHeaderData.csv&lt;/a&gt;'.</msg>
+<msg time="2025-02-19T16:22:59.723644" level="INFO" html="true">Copied file from '&lt;a href="file://C:\Users\jvisa\OneDrive\Documents\UiPath\RPA-projekti\InvoiceRowData.csv"&gt;C:\Users\jvisa\OneDrive\Documents\UiPath\RPA-projekti\InvoiceRowData.csv&lt;/a&gt;' to '&lt;a href="file://C:\VSCode\Ohjelmistorobotiikka ja -automaatio -projekti\CSVs\InvoiceRowData.csv"&gt;C:\VSCode\Ohjelmistorobotiikka ja -automaatio -projekti\CSVs\InvoiceRowData.csv&lt;/a&gt;'.</msg>
+<arg>${ORIGINPATH}/*.csv</arg>
+<arg>${TARGETPATH}</arg>
+<doc>Copies specified files to the target directory.</doc>
+<status status="PASS" start="2025-02-19T16:22:59.658487" elapsed="0.065157"/>
+</kw>
+<kw name="Count Files In Directory" owner="OperatingSystem">
+<msg time="2025-02-19T16:22:59.739030" level="INFO" html="true">Listing contents of directory '&lt;a href="file://C:\VSCode\Ohjelmistorobotiikka ja -automaatio -projekti\CSVs"&gt;C:\VSCode\Ohjelmistorobotiikka ja -automaatio -projekti\CSVs&lt;/a&gt;'.</msg>
+<msg time="2025-02-19T16:22:59.739030" level="INFO">2 files.</msg>
+<msg time="2025-02-19T16:22:59.739030" level="INFO">${filecount} = 2</msg>
+<var>${filecount}</var>
+<arg>${TARGETPATH}</arg>
+<doc>Wrapper for `Count Items In Directory` returning only file count.</doc>
+<status status="PASS" start="2025-02-19T16:22:59.739030" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Copied ${filecount} files</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-02-19T16:22:59.746545" elapsed="0.000000"/>
+</kw>
+<status status="PASS" start="2025-02-19T16:22:59.655972" elapsed="0.090573"/>
+</test>
+<test id="s1-t3" name="Read CSV file to list" line="44">
+<kw name="Make Connection">
+<kw name="Connect To Database" owner="DatabaseLibrary">
+<msg time="2025-02-19T16:22:59.749713" level="INFO">Looking for configuration file: 'resources\db.cfg'</msg>
+<msg time="2025-02-19T16:22:59.749713" level="INFO">Configuration file doesn't exist</msg>
+<msg time="2025-02-19T16:22:59.968815" level="INFO">Connect to DB using : pymysql.connect(db='projekti_laskutietokanta', user='robotuser', passwd=***, host='localhost', port=3306, charset='utf8mb4')</msg>
+<arg>pymysql</arg>
+<arg>${dbtoconnect}</arg>
+<arg>${dbuser}</arg>
+<arg>${dbpass}</arg>
+<arg>${dbhost}</arg>
+<arg>${dbport}</arg>
+<doc>Creates a database connection using the DB API 2.0 ``db_module`` and the parameters provided.
+Along with listed commonly used arguments (`db_name`, `db_host` etc.)
+you can set any other DB module specific parameters as key/value pairs.</doc>
+<status status="PASS" start="2025-02-19T16:22:59.749713" elapsed="0.249425"/>
+</kw>
+<arg>${dbname}</arg>
+<status status="PASS" start="2025-02-19T16:22:59.749713" elapsed="0.249425"/>
+</kw>
+<kw name="Get File" owner="OperatingSystem">
+<msg time="2025-02-19T16:23:00.005532" level="INFO" html="true">Getting file '&lt;a href="file://C:\VSCode\Ohjelmistorobotiikka ja -automaatio -projekti\CSVs\InvoiceHeaderData.csv"&gt;C:\VSCode\Ohjelmistorobotiikka ja -automaatio -projekti\CSVs\InvoiceHeaderData.csv&lt;/a&gt;'.</msg>
+<msg time="2025-02-19T16:23:00.009296" level="INFO">${outputHeader} = ﻿InvoiceNumber;CompanyName;ReferenceNumber;InvoiceDate;DueDate;CompanyCode;BankAccountNumber;AmountExclVAT;VATAmount;TotalAmount
+143143;Service Provider Oy;1431432;15.12.2022;07.04.2021;1234567-8;FI12...</msg>
+<var>${outputHeader}</var>
+<arg>${TARGETPATH}/InvoiceHeaderData.csv</arg>
+<doc>Returns the contents of a specified file.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.005532" elapsed="0.004860"/>
+</kw>
+<kw name="Get File" owner="OperatingSystem">
+<msg time="2025-02-19T16:23:00.010912" level="INFO" html="true">Getting file '&lt;a href="file://C:\VSCode\Ohjelmistorobotiikka ja -automaatio -projekti\CSVs\InvoiceRowData.csv"&gt;C:\VSCode\Ohjelmistorobotiikka ja -automaatio -projekti\CSVs\InvoiceRowData.csv&lt;/a&gt;'.</msg>
+<msg time="2025-02-19T16:23:00.013172" level="INFO">${outputRows} = ﻿Description;Quantity;Unit;UnitPrice;VATPercentage;VAT;TotaAmount;InvoiceNumber;RowNumber
+Installation Services;5;h;60;24;72;372;143143;1
+Replacement Products;10;kpl;105;24;252;1302;143143;2
+Keyboard ...</msg>
+<var>${outputRows}</var>
+<arg>${TARGETPATH}/InvoiceRowData.csv</arg>
+<doc>Returns the contents of a specified file.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.010912" elapsed="0.002260"/>
+</kw>
+<kw name="Set Global Variable" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.015188" level="INFO">${outputHeader} = ﻿InvoiceNumber;CompanyName;ReferenceNumber;InvoiceDate;DueDate;CompanyCode;BankAccountNumber;AmountExclVAT;VATAmount;TotalAmount
+143143;Service Provider Oy;1431432;15.12.2022;07.04.2021;1234567-8;FI12...</msg>
+<arg>${outputHeader}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.015188" elapsed="0.000000"/>
+</kw>
+<kw name="Set Global Variable" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.015188" level="INFO">${outputRows} = ﻿Description;Quantity;Unit;UnitPrice;VATPercentage;VAT;TotaAmount;InvoiceNumber;RowNumber
+Installation Services;5;h;60;24;72;372;143143;1
+Replacement Products;10;kpl;105;24;252;1302;143143;2
+Keyboard ...</msg>
+<arg>${outputRows}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.015188" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.015188" level="INFO">﻿InvoiceNumber;CompanyName;ReferenceNumber;InvoiceDate;DueDate;CompanyCode;BankAccountNumber;AmountExclVAT;VATAmount;TotalAmount
+143143;Service Provider Oy;1431432;15.12.2022;07.04.2021;1234567-8;FI12 3456 7890 1234 56;1350;324;1674
+1543235;Component Oy;15432359;01.10.2022;15.10.2022;1234567-9;FI05 1234 5600 7891 01;465;111.6;576.6
+153143;Service Provider Oy;1531439;15.12.2022;01.04.2021;1234567-8;FI12 3456 7890 1234 56;2700;648;3348
+</msg>
+<arg>${outputHeader}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.015188" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.015188" level="INFO">﻿Description;Quantity;Unit;UnitPrice;VATPercentage;VAT;TotaAmount;InvoiceNumber;RowNumber
+Installation Services;5;h;60;24;72;372;143143;1
+Replacement Products;10;kpl;105;24;252;1302;143143;2
+Keyboard Logitech;10;kpl;40;24;96;496;1543235;1
+Brother printer;1;kpl;65;24;15.6;80.6;1543235;2
+Installation Services;5;h;60;24;72;372;153143;1
+Replacement Products;10;kpl;105;24;252;1302;153143;2
+Cleaning Services;5;h;60;24;72;372;153143;3
+Cleaning Wipes;10;kpl;105;24;252;1302;153143;4
+</msg>
+<arg>${outputRows}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.015188" elapsed="0.009857"/>
+</kw>
+<status status="PASS" start="2025-02-19T16:22:59.749713" elapsed="0.276425"/>
+</test>
+<test id="s1-t4" name="Viitenumeron validointi" line="55">
+<kw name="Split String To Characters" owner="String">
+<msg time="2025-02-19T16:23:00.028474" level="INFO">${tarkistus} = ['1', '5', '3', '1', '4', '3', '9']</msg>
+<var>${tarkistus}</var>
+<arg>${viitenumero}</arg>
+<doc>Splits the given ``string`` to characters.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.028474" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${tarkistus}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.033011" elapsed="0.000000"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.035728" level="INFO">${listanViimeinen} = 7</msg>
+<var>${listanViimeinen}</var>
+<arg>${tarkistus.__len__()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.035728" elapsed="0.002034"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.039009" level="INFO">${listanViimeinen} = 6</msg>
+<var>${listanViimeinen}</var>
+<arg>${listanViimeinen} - 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.037762" elapsed="0.001247"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${listanViimeinen}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.040456" elapsed="0.000000"/>
+</kw>
+<kw name="Get From List" owner="Collections">
+<msg time="2025-02-19T16:23:00.040456" level="INFO">${viitenumeroVika} = 9</msg>
+<var>${viitenumeroVika}</var>
+<arg>${tarkistus}</arg>
+<arg>${listanViimeinen}</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.040456" elapsed="0.000000"/>
+</kw>
+<kw name="Remove From List" owner="Collections">
+<arg>${tarkistus}</arg>
+<arg>-1</arg>
+<doc>Removes and returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.040456" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>"Listalta poistettu: " + ${tarkistus}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.046183" elapsed="0.001381"/>
+</kw>
+<kw name="Reverse List" owner="Collections">
+<arg>${tarkistus}</arg>
+<doc>Reverses the given list in place.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.047564" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${tarkistus}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.047564" elapsed="0.002742"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.051470" level="INFO">${i} = 1</msg>
+<var>${i}</var>
+<arg>1</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.051470" elapsed="0.000000"/>
+</kw>
+<for flavor="IN RANGE">
+<iter>
+<kw name="Get From List" owner="Collections">
+<msg time="2025-02-19T16:23:00.055891" level="INFO">${element} = 3</msg>
+<var>${element}</var>
+<arg>${tarkistus}</arg>
+<arg>${index}</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.053572" elapsed="0.002319"/>
+</kw>
+<if>
+<branch type="IF" condition="${i} == 4">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${i}</var>
+<arg>1</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.056387" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.056387" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.056387" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="${i} == 1">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.058097" level="INFO">${laskettu} = 21</msg>
+<var>${laskettu}</var>
+<arg>int(${element}) * ${7}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.058097" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.058097" level="INFO">21 + " (kerrottu 7:lla)"</msg>
+<arg>${laskettu} + " (kerrottu 7:lla)"</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.058097" elapsed="0.001859"/>
+</kw>
+<status status="PASS" start="2025-02-19T16:23:00.056387" elapsed="0.003569"/>
+</branch>
+<branch type="ELSE IF" condition="${i} == 2">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${laskettu}</var>
+<arg>int(${element}) * ${3}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.059956" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>${laskettu} + " (kerrottu 5:lla)"</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.059956" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.059956" elapsed="0.000000"/>
+</branch>
+<branch type="ELSE">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${laskettu}</var>
+<arg>int(${element}) * ${1}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.059956" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>${laskettu} + " (kerrottu 1:lla)"</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.059956" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.059956" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.056387" elapsed="0.003569"/>
+</if>
+<kw name="Set List Value" owner="Collections">
+<arg>${tarkistus}</arg>
+<arg>${index}</arg>
+<arg>${laskettu}</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.059956" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.059956" level="INFO">${i} = 2</msg>
+<var>${i}</var>
+<arg>${i}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.059956" elapsed="0.000000"/>
+</kw>
+<var name="${index}">0</var>
+<status status="PASS" start="2025-02-19T16:23:00.053572" elapsed="0.006384"/>
+</iter>
+<iter>
+<kw name="Get From List" owner="Collections">
+<msg time="2025-02-19T16:23:00.065380" level="INFO">${element} = 4</msg>
+<var>${element}</var>
+<arg>${tarkistus}</arg>
+<arg>${index}</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.059956" elapsed="0.005424"/>
+</kw>
+<if>
+<branch type="IF" condition="${i} == 4">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${i}</var>
+<arg>1</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.065380" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.065380" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.065380" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="${i} == 1">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${laskettu}</var>
+<arg>int(${element}) * ${7}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.067105" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>${laskettu} + " (kerrottu 7:lla)"</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.067105" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.065380" elapsed="0.001725"/>
+</branch>
+<branch type="ELSE IF" condition="${i} == 2">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.067105" level="INFO">${laskettu} = 12</msg>
+<var>${laskettu}</var>
+<arg>int(${element}) * ${3}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.067105" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.067105" level="INFO">12 + " (kerrottu 5:lla)"</msg>
+<arg>${laskettu} + " (kerrottu 5:lla)"</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.067105" elapsed="0.000000"/>
+</kw>
+<status status="PASS" start="2025-02-19T16:23:00.067105" elapsed="0.000000"/>
+</branch>
+<branch type="ELSE">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${laskettu}</var>
+<arg>int(${element}) * ${1}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.067105" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>${laskettu} + " (kerrottu 1:lla)"</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.067105" elapsed="0.004091"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.067105" elapsed="0.004091"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.065380" elapsed="0.005816"/>
+</if>
+<kw name="Set List Value" owner="Collections">
+<arg>${tarkistus}</arg>
+<arg>${index}</arg>
+<arg>${laskettu}</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.072253" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.072990" level="INFO">${i} = 3</msg>
+<var>${i}</var>
+<arg>${i}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.072990" elapsed="0.000000"/>
+</kw>
+<var name="${index}">1</var>
+<status status="PASS" start="2025-02-19T16:23:00.059956" elapsed="0.013034"/>
+</iter>
+<iter>
+<kw name="Get From List" owner="Collections">
+<msg time="2025-02-19T16:23:00.072990" level="INFO">${element} = 1</msg>
+<var>${element}</var>
+<arg>${tarkistus}</arg>
+<arg>${index}</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.072990" elapsed="0.002414"/>
+</kw>
+<if>
+<branch type="IF" condition="${i} == 4">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${i}</var>
+<arg>1</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.075404" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.075404" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.075404" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="${i} == 1">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${laskettu}</var>
+<arg>int(${element}) * ${7}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.075404" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>${laskettu} + " (kerrottu 7:lla)"</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.077240" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.075404" elapsed="0.001836"/>
+</branch>
+<branch type="ELSE IF" condition="${i} == 2">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${laskettu}</var>
+<arg>int(${element}) * ${3}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.077240" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>${laskettu} + " (kerrottu 5:lla)"</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.077240" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.077240" elapsed="0.000000"/>
+</branch>
+<branch type="ELSE">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.079241" level="INFO">${laskettu} = 1</msg>
+<var>${laskettu}</var>
+<arg>int(${element}) * ${1}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.077240" elapsed="0.002001"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.079241" level="INFO">1 + " (kerrottu 1:lla)"</msg>
+<arg>${laskettu} + " (kerrottu 1:lla)"</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.079241" elapsed="0.000000"/>
+</kw>
+<status status="PASS" start="2025-02-19T16:23:00.077240" elapsed="0.002001"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.075404" elapsed="0.003837"/>
+</if>
+<kw name="Set List Value" owner="Collections">
+<arg>${tarkistus}</arg>
+<arg>${index}</arg>
+<arg>${laskettu}</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.079241" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.079241" level="INFO">${i} = 4</msg>
+<var>${i}</var>
+<arg>${i}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.079241" elapsed="0.000000"/>
+</kw>
+<var name="${index}">2</var>
+<status status="PASS" start="2025-02-19T16:23:00.072990" elapsed="0.006251"/>
+</iter>
+<iter>
+<kw name="Get From List" owner="Collections">
+<msg time="2025-02-19T16:23:00.079241" level="INFO">${element} = 3</msg>
+<var>${element}</var>
+<arg>${tarkistus}</arg>
+<arg>${index}</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.079241" elapsed="0.000000"/>
+</kw>
+<if>
+<branch type="IF" condition="${i} == 4">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.079241" level="INFO">${i} = 1</msg>
+<var>${i}</var>
+<arg>1</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.079241" elapsed="0.000000"/>
+</kw>
+<status status="PASS" start="2025-02-19T16:23:00.079241" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.079241" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="${i} == 1">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.079241" level="INFO">${laskettu} = 21</msg>
+<var>${laskettu}</var>
+<arg>int(${element}) * ${7}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.079241" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.087253" level="INFO">21 + " (kerrottu 7:lla)"</msg>
+<arg>${laskettu} + " (kerrottu 7:lla)"</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.087253" elapsed="0.000000"/>
+</kw>
+<status status="PASS" start="2025-02-19T16:23:00.079241" elapsed="0.008012"/>
+</branch>
+<branch type="ELSE IF" condition="${i} == 2">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${laskettu}</var>
+<arg>int(${element}) * ${3}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.089127" elapsed="0.000747"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>${laskettu} + " (kerrottu 5:lla)"</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.089874" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.089127" elapsed="0.000747"/>
+</branch>
+<branch type="ELSE">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${laskettu}</var>
+<arg>int(${element}) * ${1}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.090891" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>${laskettu} + " (kerrottu 1:lla)"</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.090891" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.090891" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.079241" elapsed="0.011650"/>
+</if>
+<kw name="Set List Value" owner="Collections">
+<arg>${tarkistus}</arg>
+<arg>${index}</arg>
+<arg>${laskettu}</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.090891" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.090891" level="INFO">${i} = 2</msg>
+<var>${i}</var>
+<arg>${i}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.090891" elapsed="0.000000"/>
+</kw>
+<var name="${index}">3</var>
+<status status="PASS" start="2025-02-19T16:23:00.079241" elapsed="0.011650"/>
+</iter>
+<iter>
+<kw name="Get From List" owner="Collections">
+<msg time="2025-02-19T16:23:00.090891" level="INFO">${element} = 5</msg>
+<var>${element}</var>
+<arg>${tarkistus}</arg>
+<arg>${index}</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.090891" elapsed="0.000000"/>
+</kw>
+<if>
+<branch type="IF" condition="${i} == 4">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${i}</var>
+<arg>1</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.090891" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.090891" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.090891" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="${i} == 1">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${laskettu}</var>
+<arg>int(${element}) * ${7}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.090891" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>${laskettu} + " (kerrottu 7:lla)"</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.090891" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.090891" elapsed="0.000000"/>
+</branch>
+<branch type="ELSE IF" condition="${i} == 2">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.090891" level="INFO">${laskettu} = 15</msg>
+<var>${laskettu}</var>
+<arg>int(${element}) * ${3}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.090891" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.090891" level="INFO">15 + " (kerrottu 5:lla)"</msg>
+<arg>${laskettu} + " (kerrottu 5:lla)"</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.090891" elapsed="0.012022"/>
+</kw>
+<status status="PASS" start="2025-02-19T16:23:00.090891" elapsed="0.012022"/>
+</branch>
+<branch type="ELSE">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${laskettu}</var>
+<arg>int(${element}) * ${1}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.102913" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>${laskettu} + " (kerrottu 1:lla)"</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.102913" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.102913" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.090891" elapsed="0.012022"/>
+</if>
+<kw name="Set List Value" owner="Collections">
+<arg>${tarkistus}</arg>
+<arg>${index}</arg>
+<arg>${laskettu}</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.102913" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.105963" level="INFO">${i} = 3</msg>
+<var>${i}</var>
+<arg>${i}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.105963" elapsed="0.000936"/>
+</kw>
+<var name="${index}">4</var>
+<status status="PASS" start="2025-02-19T16:23:00.090891" elapsed="0.016008"/>
+</iter>
+<iter>
+<kw name="Get From List" owner="Collections">
+<msg time="2025-02-19T16:23:00.106899" level="INFO">${element} = 1</msg>
+<var>${element}</var>
+<arg>${tarkistus}</arg>
+<arg>${index}</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.106899" elapsed="0.008018"/>
+</kw>
+<if>
+<branch type="IF" condition="${i} == 4">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${i}</var>
+<arg>1</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.114917" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.114917" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.114917" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="${i} == 1">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${laskettu}</var>
+<arg>int(${element}) * ${7}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.114917" elapsed="0.004020"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>${laskettu} + " (kerrottu 7:lla)"</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.118937" elapsed="0.016043"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.114917" elapsed="0.024142"/>
+</branch>
+<branch type="ELSE IF" condition="${i} == 2">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${laskettu}</var>
+<arg>int(${element}) * ${3}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.139059" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>${laskettu} + " (kerrottu 5:lla)"</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.139059" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.139059" elapsed="0.000000"/>
+</branch>
+<branch type="ELSE">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.143069" level="INFO">${laskettu} = 1</msg>
+<var>${laskettu}</var>
+<arg>int(${element}) * ${1}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.139059" elapsed="0.004010"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.143069" level="INFO">1 + " (kerrottu 1:lla)"</msg>
+<arg>${laskettu} + " (kerrottu 1:lla)"</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.143069" elapsed="0.000000"/>
+</kw>
+<status status="PASS" start="2025-02-19T16:23:00.139059" elapsed="0.004010"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.114917" elapsed="0.028152"/>
+</if>
+<kw name="Set List Value" owner="Collections">
+<arg>${tarkistus}</arg>
+<arg>${index}</arg>
+<arg>${laskettu}</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.143069" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.143069" level="INFO">${i} = 4</msg>
+<var>${i}</var>
+<arg>${i}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.143069" elapsed="0.000000"/>
+</kw>
+<var name="${index}">5</var>
+<status status="PASS" start="2025-02-19T16:23:00.106899" elapsed="0.036170"/>
+</iter>
+<var>${index}</var>
+<value>${tarkistus.__len__()}</value>
+<status status="PASS" start="2025-02-19T16:23:00.051470" elapsed="0.091599"/>
+</for>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${tarkistus}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.143069" elapsed="0.000000"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.151568" level="INFO">${viitesumma} = 0</msg>
+<var>${viitesumma}</var>
+<arg>0</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.151568" elapsed="0.000000"/>
+</kw>
+<for flavor="IN RANGE">
+<iter>
+<kw name="Get From List" owner="Collections">
+<msg time="2025-02-19T16:23:00.156134" level="INFO">${element} = 21</msg>
+<var>${element}</var>
+<arg>${tarkistus}</arg>
+<arg>${index}</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.154245" elapsed="0.001889"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.157372" level="INFO">${viitesumma} = 21</msg>
+<var>${viitesumma}</var>
+<arg>${viitesumma} + int(${element})</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.156134" elapsed="0.001238"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>"Viitesumma: " + ${viitesumma}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.157372" elapsed="0.000000"/>
+</kw>
+<var name="${index}">0</var>
+<status status="PASS" start="2025-02-19T16:23:00.154245" elapsed="0.003127"/>
+</iter>
+<iter>
+<kw name="Get From List" owner="Collections">
+<msg time="2025-02-19T16:23:00.159890" level="INFO">${element} = 12</msg>
+<var>${element}</var>
+<arg>${tarkistus}</arg>
+<arg>${index}</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.159890" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.159890" level="INFO">${viitesumma} = 33</msg>
+<var>${viitesumma}</var>
+<arg>${viitesumma} + int(${element})</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.159890" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>"Viitesumma: " + ${viitesumma}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.159890" elapsed="0.000000"/>
+</kw>
+<var name="${index}">1</var>
+<status status="PASS" start="2025-02-19T16:23:00.159890" elapsed="0.000000"/>
+</iter>
+<iter>
+<kw name="Get From List" owner="Collections">
+<msg time="2025-02-19T16:23:00.159890" level="INFO">${element} = 1</msg>
+<var>${element}</var>
+<arg>${tarkistus}</arg>
+<arg>${index}</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.159890" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.166034" level="INFO">${viitesumma} = 34</msg>
+<var>${viitesumma}</var>
+<arg>${viitesumma} + int(${element})</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.166034" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>"Viitesumma: " + ${viitesumma}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.167430" elapsed="0.000000"/>
+</kw>
+<var name="${index}">2</var>
+<status status="PASS" start="2025-02-19T16:23:00.159890" elapsed="0.007540"/>
+</iter>
+<iter>
+<kw name="Get From List" owner="Collections">
+<msg time="2025-02-19T16:23:00.169020" level="INFO">${element} = 21</msg>
+<var>${element}</var>
+<arg>${tarkistus}</arg>
+<arg>${index}</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.169020" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.169020" level="INFO">${viitesumma} = 55</msg>
+<var>${viitesumma}</var>
+<arg>${viitesumma} + int(${element})</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.169020" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>"Viitesumma: " + ${viitesumma}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.169020" elapsed="0.000000"/>
+</kw>
+<var name="${index}">3</var>
+<status status="PASS" start="2025-02-19T16:23:00.167430" elapsed="0.001590"/>
+</iter>
+<iter>
+<kw name="Get From List" owner="Collections">
+<msg time="2025-02-19T16:23:00.169020" level="INFO">${element} = 15</msg>
+<var>${element}</var>
+<arg>${tarkistus}</arg>
+<arg>${index}</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.169020" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.169020" level="INFO">${viitesumma} = 70</msg>
+<var>${viitesumma}</var>
+<arg>${viitesumma} + int(${element})</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.169020" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>"Viitesumma: " + ${viitesumma}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.169020" elapsed="0.000000"/>
+</kw>
+<var name="${index}">4</var>
+<status status="PASS" start="2025-02-19T16:23:00.169020" elapsed="0.006606"/>
+</iter>
+<iter>
+<kw name="Get From List" owner="Collections">
+<msg time="2025-02-19T16:23:00.175626" level="INFO">${element} = 1</msg>
+<var>${element}</var>
+<arg>${tarkistus}</arg>
+<arg>${index}</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.175626" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.175626" level="INFO">${viitesumma} = 71</msg>
+<var>${viitesumma}</var>
+<arg>${viitesumma} + int(${element})</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.175626" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>"Viitesumma: " + ${viitesumma}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.175626" elapsed="0.000000"/>
+</kw>
+<var name="${index}">5</var>
+<status status="PASS" start="2025-02-19T16:23:00.175626" elapsed="0.000000"/>
+</iter>
+<var>${index}</var>
+<value>${tarkistus.__len__()}</value>
+<status status="PASS" start="2025-02-19T16:23:00.151568" elapsed="0.024058"/>
+</for>
+<kw name="Convert To Number" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.180439" level="INFO">${viitesummaRound} = 70.0</msg>
+<var>${viitesummaRound}</var>
+<arg>${viitesumma}</arg>
+<arg>-1</arg>
+<doc>Converts the given item to a floating point number.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.180439" elapsed="0.000000"/>
+</kw>
+<if>
+<branch type="IF" condition="${viitesummaRound} &lt; ${viitesumma}">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.180439" level="INFO">${viitesummaRound} = 80.0</msg>
+<var>${viitesummaRound}</var>
+<arg>${viitesummaRound} + 10</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.180439" elapsed="0.000000"/>
+</kw>
+<status status="PASS" start="2025-02-19T16:23:00.180439" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.180439" elapsed="0.000000"/>
+</if>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${viitesummaRound}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.180439" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.186610" level="INFO">${tarkistusnumero} = 9.0</msg>
+<var>${tarkistusnumero}</var>
+<arg>${viitesummaRound} - ${viitesumma}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.186610" elapsed="0.000000"/>
+</kw>
+<if>
+<branch type="IF" condition="${tarkistusnumero} == 10">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${tarkistusnumero}</var>
+<arg>0</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.186610" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.186610" elapsed="0.003097"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.186610" elapsed="0.003097"/>
+</if>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.191228" level="INFO">"Tarkistenumero: " + 9.0</msg>
+<arg>"Tarkistenumero: " + ${tarkistusnumero}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.189707" elapsed="0.001521"/>
+</kw>
+<if>
+<branch type="IF" condition="${viitenumeroVika} == ${tarkistusnumero}">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>"Viitenumeron viimeinen: " ${viitenumeroVika}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.191228" elapsed="0.001882"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>"Tarkistenumero: " ${tarkistusnumero}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.193110" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>"Kaikki hyvin!"</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.193110" elapsed="0.000000"/>
+</kw>
+<status status="PASS" start="2025-02-19T16:23:00.191228" elapsed="0.001882"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>"Viitenumeron viimeinen: " ${viitenumeroVika}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.193110" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>"Tarkistenumero: " ${tarkistusnumero}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.193110" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>"Numeroissa häikkää."</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.193110" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.193110" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.191228" elapsed="0.001882"/>
+</if>
+<status status="PASS" start="2025-02-19T16:23:00.026138" elapsed="0.166972"/>
+</test>
+<test id="s1-t5" name="IBANin validointi" line="133">
+<kw name="Remove String" owner="String">
+<msg time="2025-02-19T16:23:00.197894" level="INFO">${iban} = FI0512345600789101</msg>
+<var>${iban}</var>
+<arg>${iban}</arg>
+<arg>${SPACE}</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.197894" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${iban}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.197894" elapsed="0.003690"/>
+</kw>
+<kw name="Get Substring" owner="String">
+<msg time="2025-02-19T16:23:00.201584" level="INFO">${ibanFirstFour} = FI05</msg>
+<var>${ibanFirstFour}</var>
+<arg>${iban}</arg>
+<arg>0</arg>
+<arg>4</arg>
+<doc>Returns a substring from ``start`` index to ``end`` index.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.201584" elapsed="0.000000"/>
+</kw>
+<kw name="Split String To Characters" owner="String">
+<msg time="2025-02-19T16:23:00.201584" level="INFO">${ibanFirstFour} = ['F', 'I', '0', '5']</msg>
+<var>${ibanFirstFour}</var>
+<arg>${ibanFirstFour}</arg>
+<doc>Splits the given ``string`` to characters.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.201584" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${ibanFirstFour}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.201584" elapsed="0.004323"/>
+</kw>
+<for flavor="IN RANGE">
+<iter>
+<kw name="Get From List" owner="Collections">
+<msg time="2025-02-19T16:23:00.209752" level="INFO">${element} = F</msg>
+<var>${element}</var>
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.208758" elapsed="0.000994"/>
+</kw>
+<if>
+<branch type="IF" condition="'${element}' == 'A'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>10</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.209752" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.209752" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.209752" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'B'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>11</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.209752" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.209752" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.209752" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'C'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>12</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.209752" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.209752" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.209752" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'D'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>13</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.209752" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.209752" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.209752" elapsed="0.004434"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'E'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>14</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.214186" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.214186" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.214186" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'F'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>15</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.215391" elapsed="0.000000"/>
+</kw>
+<status status="PASS" start="2025-02-19T16:23:00.214186" elapsed="0.001205"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.214186" elapsed="0.001205"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'G'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>16</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.216466" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.215391" elapsed="0.001075"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.215391" elapsed="0.001075"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'H'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>17</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.217574" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.216466" elapsed="0.001108"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.216466" elapsed="0.001108"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'I'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>18</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.217574" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.217574" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.217574" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'J'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>19</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.217574" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.217574" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.217574" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'K'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>20</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.217574" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.217574" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.217574" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'L'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>21</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.217574" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.217574" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.217574" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'M'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>22</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.222276" elapsed="0.000200"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.217574" elapsed="0.004902"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.217574" elapsed="0.004902"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'N'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>23</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.222476" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.222476" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.222476" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'O'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>24</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.222476" elapsed="0.001680"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.222476" elapsed="0.001680"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.222476" elapsed="0.001680"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'P'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>25</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.224156" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.224156" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.224156" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'Q'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>26</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.224156" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.224156" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.224156" elapsed="0.001777"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'R'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>27</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.225933" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.225933" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.225933" elapsed="0.001430"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'S'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>28</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.227363" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.227363" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.227363" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'T'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>29</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.227363" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.227363" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.227363" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'U'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>30</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.227363" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.227363" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.227363" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'V'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>31</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.230884" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.227363" elapsed="0.003521"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.227363" elapsed="0.003521"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'W'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>32</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.230884" elapsed="0.001100"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.230884" elapsed="0.001100"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.230884" elapsed="0.001100"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'X'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>33</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.231984" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.231984" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.231984" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'Y'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>34</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.231984" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.231984" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.231984" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'Z'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>35</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.231984" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.231984" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.231984" elapsed="0.000000"/>
+</if>
+<var name="${index}">0</var>
+<status status="PASS" start="2025-02-19T16:23:00.208758" elapsed="0.023226"/>
+</iter>
+<iter>
+<kw name="Get From List" owner="Collections">
+<msg time="2025-02-19T16:23:00.237630" level="INFO">${element} = I</msg>
+<var>${element}</var>
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.231984" elapsed="0.005646"/>
+</kw>
+<if>
+<branch type="IF" condition="'${element}' == 'A'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>10</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.238921" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.237630" elapsed="0.001291"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.237630" elapsed="0.001291"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'B'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>11</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.238921" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.238921" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.238921" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'C'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>12</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.238921" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.238921" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.238921" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'D'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>13</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.238921" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.238921" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.238921" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'E'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>14</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.238921" elapsed="0.003695"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.238921" elapsed="0.003695"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.238921" elapsed="0.003695"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'F'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>15</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.242616" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.242616" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.242616" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'G'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>16</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.242616" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.242616" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.242616" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'H'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>17</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.242616" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.242616" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.242616" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'I'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>18</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.242616" elapsed="0.000000"/>
+</kw>
+<status status="PASS" start="2025-02-19T16:23:00.242616" elapsed="0.004093"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.242616" elapsed="0.004093"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'J'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>19</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.246709" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.246709" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.246709" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'K'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>20</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.246709" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.246709" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.246709" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'L'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>21</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.248793" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.246709" elapsed="0.002084"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.246709" elapsed="0.002084"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'M'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>22</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.248793" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.248793" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.248793" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'N'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>23</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.248793" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.248793" elapsed="0.002016"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.248793" elapsed="0.002016"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'O'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>24</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.250809" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.250809" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.250809" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'P'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>25</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.250809" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.250809" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.250809" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'Q'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>26</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.250809" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.250809" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.250809" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'R'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>27</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.250809" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.250809" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.250809" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'S'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>28</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.250809" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.250809" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.250809" elapsed="0.004925"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'T'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>29</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.255734" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.255734" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.255734" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'U'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>30</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.255734" elapsed="0.002966"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.255734" elapsed="0.002966"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.255734" elapsed="0.002966"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'V'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>31</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.258700" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.258700" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.258700" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'W'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>32</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.258700" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.258700" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.258700" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'X'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>33</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.258700" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.258700" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.258700" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'Y'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>34</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.258700" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.258700" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.258700" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'Z'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>35</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.258700" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.258700" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.258700" elapsed="0.000000"/>
+</if>
+<var name="${index}">1</var>
+<status status="PASS" start="2025-02-19T16:23:00.231984" elapsed="0.026716"/>
+</iter>
+<iter>
+<kw name="Get From List" owner="Collections">
+<msg time="2025-02-19T16:23:00.264220" level="INFO">${element} = 0</msg>
+<var>${element}</var>
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.264220" elapsed="0.000000"/>
+</kw>
+<if>
+<branch type="IF" condition="'${element}' == 'A'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>10</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.264220" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.264220" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.264220" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'B'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>11</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.264220" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.264220" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.264220" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'C'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>12</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.264220" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.264220" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.264220" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'D'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>13</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.264220" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.264220" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.264220" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'E'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>14</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.264220" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.264220" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.264220" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'F'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>15</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.264220" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.264220" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.264220" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'G'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>16</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.264220" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.264220" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.264220" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'H'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>17</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.264220" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.264220" elapsed="0.008314"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.264220" elapsed="0.008314"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'I'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>18</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.273599" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.272534" elapsed="0.001065"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.272534" elapsed="0.001065"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'J'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>19</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.273599" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.273599" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.273599" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'K'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>20</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.273599" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.273599" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.273599" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'L'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>21</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.273599" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.273599" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.273599" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'M'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>22</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.273599" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.273599" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.273599" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'N'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>23</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.273599" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.273599" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.273599" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'O'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>24</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.273599" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.273599" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.273599" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'P'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>25</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.273599" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.273599" elapsed="0.007021"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.273599" elapsed="0.007021"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'Q'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>26</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.280620" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.280620" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.280620" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'R'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>27</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.280620" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.280620" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.280620" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'S'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>28</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.280620" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.280620" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.280620" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'T'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>29</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.280620" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.280620" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.280620" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'U'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>30</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.280620" elapsed="0.004235"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.280620" elapsed="0.004235"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.280620" elapsed="0.004235"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'V'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>31</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.284855" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.284855" elapsed="0.001373"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.284855" elapsed="0.001497"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'W'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>32</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.286420" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.286420" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.286420" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'X'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>33</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.287480" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.286420" elapsed="0.001060"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.286420" elapsed="0.001571"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'Y'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>34</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.287991" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.287991" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.287991" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'Z'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>35</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.289044" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.288910" elapsed="0.000507"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.287991" elapsed="0.001426"/>
+</if>
+<var name="${index}">2</var>
+<status status="PASS" start="2025-02-19T16:23:00.264220" elapsed="0.025197"/>
+</iter>
+<iter>
+<kw name="Get From List" owner="Collections">
+<msg time="2025-02-19T16:23:00.291386" level="INFO">${element} = 5</msg>
+<var>${element}</var>
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.289834" elapsed="0.001552"/>
+</kw>
+<if>
+<branch type="IF" condition="'${element}' == 'A'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>10</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.291897" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.291897" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.291897" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'B'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>11</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.293511" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.292992" elapsed="0.000519"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.292992" elapsed="0.000519"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'C'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>12</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.293511" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.293511" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.293511" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'D'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>13</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.295438" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.295438" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.295438" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'E'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>14</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.295438" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.295438" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.295438" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'F'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>15</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.295438" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.295438" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.295438" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'G'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>16</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.295438" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.295438" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.295438" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'H'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>17</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.295438" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.295438" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.295438" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'I'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>18</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.304957" elapsed="0.000759"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.295438" elapsed="0.010278"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.295438" elapsed="0.010278"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'J'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>19</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.305716" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.305716" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.305716" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'K'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>20</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.305716" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.305716" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.305716" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'L'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>21</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.305716" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.305716" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.305716" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'M'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>22</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.305716" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.305716" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.305716" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'N'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>23</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.305716" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.305716" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.305716" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'O'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>24</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.313235" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.305716" elapsed="0.007519"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.305716" elapsed="0.007519"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'P'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>25</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.313235" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.313235" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.313235" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'Q'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>26</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.313235" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.313235" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.313235" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'R'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>27</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.317754" elapsed="0.000549"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.313235" elapsed="0.005068"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.313235" elapsed="0.005068"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'S'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>28</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.318303" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.318303" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.318303" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'T'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>29</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.318303" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.318303" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.318303" elapsed="0.003019"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'U'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>30</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.321322" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.321322" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.321322" elapsed="0.001741"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'V'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>31</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.323063" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.323063" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.323063" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'W'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>32</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.323063" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.323063" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.323063" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'X'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>33</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.323063" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.323063" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.323063" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'Y'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>34</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.323063" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.323063" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.323063" elapsed="0.000000"/>
+</if>
+<if>
+<branch type="IF" condition="'${element}' == 'Z'">
+<kw name="Set List Value" owner="Collections">
+<arg>${ibanFirstFour}</arg>
+<arg>${index}</arg>
+<arg>35</arg>
+<doc>Sets the value of ``list`` specified by ``index`` to the given ``value``.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.323063" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.323063" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.323063" elapsed="0.000000"/>
+</if>
+<var name="${index}">3</var>
+<status status="PASS" start="2025-02-19T16:23:00.289834" elapsed="0.033229"/>
+</iter>
+<var>${index}</var>
+<value>${ibanFirstFour.__len__()}</value>
+<status status="PASS" start="2025-02-19T16:23:00.205907" elapsed="0.123674"/>
+</for>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${ibanFirstFour}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.329581" elapsed="0.000000"/>
+</kw>
+<kw name="Get Substring" owner="String">
+<msg time="2025-02-19T16:23:00.329581" level="INFO">${ibanLast} = 12345600789101</msg>
+<var>${ibanLast}</var>
+<arg>${iban}</arg>
+<arg>4</arg>
+<doc>Returns a substring from ``start`` index to ``end`` index.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.329581" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${ibanLast}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.333561" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.338079" level="INFO">${ibanFirstFour} = 151805</msg>
+<var>${ibanFirstFour}</var>
+<arg>"".join(${ibanFirstFour})</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.333561" elapsed="0.004518"/>
+</kw>
+<kw name="Catenate" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.338593" level="INFO">${ibanNew} = 12345600789101151805</msg>
+<var>${ibanNew}</var>
+<arg>SEPARATOR=</arg>
+<arg>${ibanLast}</arg>
+<arg>${ibanFirstFour}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.338593" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${ibanNew}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.338593" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-02-19T16:23:00.338593" level="INFO">${ibanCheck} = 1</msg>
+<var>${ibanCheck}</var>
+<arg>int(${ibanNew}) % 97</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.338593" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${ibanCheck}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.338593" elapsed="0.000000"/>
+</kw>
+<if>
+<branch type="IF" condition="${ibanCheck} == 1">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Iban toimii!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-02-19T16:23:00.346545" elapsed="0.000000"/>
+</kw>
+<status status="PASS" start="2025-02-19T16:23:00.346545" elapsed="0.000000"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>EI TOIMI IBAN!!!!!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-02-19T16:23:00.348718" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-02-19T16:23:00.348718" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-02-19T16:23:00.346545" elapsed="0.002173"/>
+</if>
+<status status="PASS" start="2025-02-19T16:23:00.197894" elapsed="0.150824"/>
+</test>
+<status status="PASS" start="2025-02-19T16:22:58.974858" elapsed="1.377640"/>
+</suite>
+<statistics>
+<total>
+<stat pass="5" fail="0" skip="0">All Tasks</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="5" fail="0" skip="0" id="s1" name="Rpa Projekti">Rpa Projekti</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2025-02-19T16:22:59.107390" level="WARN">Imported library 'c:\VSCode\Ohjelmistorobotiikka ja -automaatio -projekti\validate.py' contains no keywords.</msg>
+</errors>
+</robot>
