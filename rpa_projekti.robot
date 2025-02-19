@@ -8,7 +8,9 @@ Library    validate.py
 Library    SeleniumLibrary
 
 *** Variables ***
-${ORIGINPATH}    C:\\Users\\jvisa\\OneDrive\\Documents\\UiPath\\RPA-projekti
+# Tein UiPathiin muutoksen jossa se kopioi luodut csv:t temp-kansioon (helpompi ehkä jaetussa projektissa - sama täytynee tehdä ${TARGETPATH} kanssa) 
+# ${ORIGINPATH}    C:\\Users\\jvisa\\OneDrive\\Documents\\UiPath\\RPA-projekti
+${ORIGINPATH}    C:\\temp\\rpa-projekti
 ${TARGETPATH}    C:\\VSCode\\rpa-projekti\\CSVs
 
 # Database variables
@@ -124,7 +126,6 @@ Viitenumeron validointi
         Log To Console    "Viitenumeron viimeinen: " ${viitenumeroVika}
         Log To Console    "Tarkistenumero: " ${tarkistusnumero}
         Log To Console    "Numeroissa häikkää."
-        
     END
 
 
