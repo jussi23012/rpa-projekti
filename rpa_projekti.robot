@@ -96,11 +96,15 @@ Viitenumeron validointi
         Log To Console    "Viitenumeron viimeinen: " ${viitenumeroVika}
         Log To Console    "Tarkistenumero: " ${tarkistusnumero}
         Log To Console    "Kaikki hyvin!"
+        ${invoiceStatus}=    Set Variable    0
     ELSE
         Log To Console    "Viitenumeron viimeinen: " ${viitenumeroVika}
         Log To Console    "Tarkistenumero: " ${tarkistusnumero}
         Log To Console    "Numeroissa häikkää."
+        ${invoiceStatus}=    Set Variable    1
     END
+
+    RETURN    ${invoiceStatus}
 
 IBANin validointi
     [Arguments]    ${ibannumber}
@@ -220,6 +224,11 @@ IBANin validointi
         
     END
 
+Insert into Invoice Database
+    [Arguments]    ${invoiceNumber}    ${companyName}    ${companyCode}    ${referenceNumber}    ${invoiceDate}    ${dueDate}    ${bankAccountNumber}    ${amountExclVAT}    ${vatAmount}    ${totalAmount}    ${invoiceStatus}
+    ${query}=    Set Variable
+    Execute Sql String    ${query}
+
 *** Tasks ***
 Empty the CSV directory from previous files
     # Tyhjennetään työkansio ennen laskujen käsittelyä
@@ -252,6 +261,7 @@ Create Dictionaries from Headers
     ${outputHeaderDict}=    Read Csv As Dictionary    ${TARGETPATH}/InvoiceHeaderData.csv    ${headers}[0]    ${headersValueColumns}    delimiter=;
     Log    'Keys: ' + ${outputHeaderDict.keys()}
     # Log    ${outputHeaderDict}
+
     Set Suite Variable    ${outputHeaderDict}
 
 *** Tasks ***
@@ -269,8 +279,9 @@ Viitenumeron validointi task
         ${rowData}=    Get From Dictionary    ${outputHeaderDict}    ${key}
         # Log    ${rowData}
         ${referenceNumber}=    Get From List    ${rowData}    1
-
-        Viitenumeron validointi    ${referenceNumber}
+        ${invoicestatus}=    Viitenumeron validointi    ${referenceNumber}
+        Set List Value    ${rowData}    9    ${invoicestatus}
+        Set To Dictionary    ${outputHeaderDict}    ${key}    ${rowData}
     END
 
 *** Tasks ***
@@ -285,16 +296,33 @@ Ibanin validointi task
 
 *** Tasks ***
 Insert Data to DB
-    #Tämä kopioitu suoraan dbtest.robotista, luodaan tämän perusteella alle oikea versio
-    Make Connection    ${dbname}
+    # #Tämä kopioitu suoraan dbtest.robotista, luodaan tämän perusteella alle oikea versio
+    # Make Connection    ${dbname}
     
-    #insert ei toimi, sillä robotrolella ei ole käyttöoikeutta siihen 
-    #grant insert on invoicestatus to robotrole;
-    ${insertStmt}=    Set Variable    insert into invoicestatus (id, name) values (100, 'testi');
-    Log To Console    ${insertStmt}
-    Execute Sql String    ${insertStmt}
+    # #insert ei toimi, sillä robotrolella ei ole käyttöoikeutta siihen 
+    # #grant insert on invoicestatus to robotrole;
+    # ${insertStmt}=    Set Variable    insert into invoicestatus (id, name) values (100, 'testi');
+    # Log To Console    ${insertStmt}
+    # Execute Sql String    ${insertStmt}
 
-    Disconnect From Database
+    # Disconnect From Database
 
     # ---------------------------------
+    Make Connection    ${dbname}
+    FOR    ${key}    IN    @{outputHeaderDict.keys()}
+        ${invoiceNumber}=    Get From Dictionary    ${outputHeaderDict}   ${key}
+        ${companyName}=    Get From List    ${invoiceNumber}    0
+        ${companyCode}=    Get From List    ${invoiceNumber}    4
+        ${referenceNumber}=    Get From List    ${invoiceNumber}    1    
+        ${invoiceDate}=    Get From List    ${invoiceNumber}    2
+        ${dueDate}=    Get From List    ${invoiceNumber}    3
+        ${bankAccountNumber}=    Get From List    ${invoiceNumber}    5
+        ${amountExclVAT}=    Get From List    ${invoiceNumber}    6
+        ${vatAmount}=    Get From List    ${invoiceNumber}    7
+        ${totalAmount}=    Get From List    ${invoiceNumber}    8
+        ${invoiceStatus}=    Get From List    ${invoiceNumber}    9
 
+        Insert into Invoice Database    ${invoiceNumber}    ${companyName}    ${companyCode}    ${referenceNumber}    ${invoiceDate}    ${dueDate}    ${bankAccountNumber}    ${amountExclVAT}    ${vatAmount}    ${totalAmount}    ${invoiceStatus}
+    END
+    
+    Disconnect From Database
