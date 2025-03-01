@@ -104,6 +104,21 @@ Viitenumeron validointi
 
     RETURN    ${invoiceStatus}
 
+Laskun summan validointi
+    [Arguments]    ${amountExclVAT}    ${vatAmount}    ${totalAmount}
+    
+    ${calculatedTotal}=    Evaluate    ${amountExclVAT} + ${vatAmount}
+    ${roundedTotal}=    Evaluate    round(${calculatedTotal}, 2)
+
+    Log    "Laskettu kokonaissumma: ${roundedTotal}, annettu kokonaissumma: ${totalAmount}"
+
+    IF    ${roundedTotal} != ${totalAmount}
+        Log To Console    "Laskun summa ei täsmää! Mahdollinen virhe laskutiedoissa."
+        RETURN    1
+    ELSE
+        RETURN    0
+    END
+
 IBANin validointi
     [Arguments]    ${ibannumber}
     # Valmistellaan iban poistamalla mahdolliset välilyönnit
@@ -291,6 +306,20 @@ Ibanin validointi task
         Set List Value    ${rowData}    9    ${ibanStatus}
         Set List Value    ${rowData}    5    ${iban}
         Log    ${iban}
+        Set To Dictionary    ${outputHeaderDict}    ${key}    ${rowData}
+    END
+
+*** Tasks ***
+Price validation task
+    FOR    ${key}    IN    @{outputHeaderDict.keys()}
+        ${rowData}=    Get From Dictionary    ${outputHeaderDict}    ${key}
+
+        ${amountExclVAT}=    Get From List    ${rowData}    6
+        ${vatAmount}=    Get From List    ${rowData}    7
+        ${totalAmount}=    Get From List    ${rowData}    8
+
+        ${priceStatus}=    Laskun summan validointi    ${amountExclVAT}    ${vatAmount}    ${totalAmount}
+        Set List Value    ${rowData}    9    ${priceStatus}
         Set To Dictionary    ${outputHeaderDict}    ${key}    ${rowData}
     END
 
