@@ -105,22 +105,34 @@ Viitenumeron validointi
     RETURN    ${invoiceStatus}
 
 Laskun summan validointi
-    [Arguments]    ${amountExclVAT}    ${vatAmount}    ${totalAmount}
+    [Arguments]    ${amountExclVAT}    ${vatAmount}    ${totalAmount}    ${sumstatus}
     
     ${calculatedTotal}=    Evaluate    ${amountExclVAT} + ${vatAmount}
     ${roundedTotal}=    Evaluate    round(${calculatedTotal}, 2)
 
     Log    "Laskettu kokonaissumma: ${roundedTotal}, annettu kokonaissumma: ${totalAmount}"
 
-    IF    ${roundedTotal} != ${totalAmount}
-        Log To Console    "Laskun summa ei täsmää! Mahdollinen virhe laskutiedoissa."
-        RETURN    1
+    # uusi ratkaisu
+    IF    ${sumStatus} > 0
+        IF    ${roundedTotal} == ${totalAmount}
+            # Log To Console    "Laskun summa ei täsmää! Mahdollinen virhe laskutiedoissa."
+            ${sumStatus}=    Set Variable   ${sumStatus}
+        ELSE
+            ${sumStatus}=    Set Variable    4
+        END
     ELSE
-        RETURN    0
+        IF    ${roundedTotal} == ${totalAmount}
+            # Log To Console    "Laskun summa ei täsmää! Mahdollinen virhe laskutiedoissa."
+            ${sumStatus}=    Set Variable   ${sumStatus}
+        ELSE
+            ${sumStatus}=    Set Variable    3
+        END
     END
 
+    RETURN    ${sumStatus}
+
 IBANin validointi
-    [Arguments]    ${ibannumber}
+    [Arguments]    ${ibannumber}    ${invoicestatus}
     # Valmistellaan iban poistamalla mahdolliset välilyönnit
     ${iban}=    Remove String    ${ibannumber}    ${SPACE}
     Log    ${iban}
@@ -226,12 +238,37 @@ IBANin validointi
     ${ibanCheck}=    Evaluate    int(${ibanNew}) % 97
     Log    "ibanCheck " ${ibanCheck}
 
+#vanha
+    Log    ${invoicestatus}
     IF    ${ibanCheck} == 1
         # Log    Iban toimii!
         ${ibanStatus}=    Set Variable    0
     ELSE
         # Log    EI TOIMI IBAN!!!!!
-        ${ibanStatus}=    Set Variable   2       
+        IF    ${invoicestatus} > 0
+            ${ibanStatus}=    Set Variable    4
+        ELSE
+            ${ibanStatus}=    Set Variable    2 
+        END
+              
+    END
+
+    ## uusi
+        # uusi ratkaisu
+    IF    ${invoicestatus} > 0
+        IF    ${ibanCheck} == 1
+            # Log To Console    "Laskun summa ei täsmää! Mahdollinen virhe laskutiedoissa."
+            ${ibanstatus}=    Set Variable   ${ibanstatus}
+        ELSE
+            ${ibanstatus}=    Set Variable    4
+        END
+    ELSE
+        IF    ${ibanCheck} == 1
+            # Log To Console    "Laskun summa ei täsmää! Mahdollinen virhe laskutiedoissa."
+            ${ibanstatus}=    Set Variable   ${ibanstatus}
+        ELSE
+            ${ibanstatus}=    Set Variable    2
+        END
     END
 
     RETURN    ${ibanStatus}    ${iban}
@@ -292,10 +329,14 @@ Ibanin validointi task
         ${rowData}=    Get From Dictionary    ${outputHeaderDict}    ${key}
         # Log    ${rowData}
         ${ibannumber}=    Get From List    ${rowData}    5
-        ${ibanStatus}    ${iban}=    IBANin validointi    ${ibannumber}
+        ${invoicestatus}=    Get From List    ${rowData}    9
+        ${ibanStatus}    ${iban}=    IBANin validointi    ${ibannumber}    ${invoicestatus}
         Set List Value    ${rowData}    9    ${ibanStatus}
         Set List Value    ${rowData}    5    ${iban}
-        Log    ${iban}
+        Log    Ibanstaus: ${ibanStatus}
+        Log    Iban: ${iban}
+        Log    Rowdata: ${rowData}
+        Log    Key: ${key}
         Set To Dictionary    ${outputHeaderDict}    ${key}    ${rowData}
     END
 
@@ -307,8 +348,9 @@ Price validation task
         ${amountExclVAT}=    Get From List    ${rowData}    6
         ${vatAmount}=    Get From List    ${rowData}    7
         ${totalAmount}=    Get From List    ${rowData}    8
+        ${sumstatus}=    Get From List    ${rowData}    9
 
-        ${priceStatus}=    Laskun summan validointi    ${amountExclVAT}    ${vatAmount}    ${totalAmount}
+        ${priceStatus}=    Laskun summan validointi    ${amountExclVAT}    ${vatAmount}    ${totalAmount}    ${sumstatus}
         Set List Value    ${rowData}    9    ${priceStatus}
         Set To Dictionary    ${outputHeaderDict}    ${key}    ${rowData}
     END
