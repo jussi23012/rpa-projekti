@@ -256,16 +256,6 @@ Copy the created CSVs from the UiPath folder to the target path
     Log To Console    Copied ${filecount} files
 
 *** Tasks ***
-Read CSV file to list
-    Make Connection    ${dbname}
-    ${outputHeader}=     Get File    ${TARGETPATH}/InvoiceHeaderData.csv
-    ${outputRows}=    Get File    ${TARGETPATH}/InvoiceRowData.csv
-    Set Global Variable    ${outputHeader}
-    Set Global Variable    ${outputRows}
-    Log    ${outputHeader}
-    Log    ${outputRows}
-
-*** Tasks ***
 Create Dictionaries from Headers
     ${csvHeaders}=    Read Csv As List    ${TARGETPATH}/InvoiceHeaderData.csv    delimiter=;
     ${headers}=    Get From List    ${csvHeaders}    0 
